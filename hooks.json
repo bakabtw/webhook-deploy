@@ -1,0 +1,20 @@
+[
+  {
+    "id": "deploy",
+    "execute-command": "/usr/local/bin/deploy.sh",
+    "include-command-output-in-response": true,
+    "trigger-rule":
+    {
+      "match":
+      {
+        "type": "value",
+        "value": "42",
+        "parameter":
+        {
+          "source": "url",
+          "name": "token"
+        }
+      }
+    }
+  }
+]
