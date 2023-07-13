@@ -5,6 +5,11 @@ if [ -z "$DOCKER_DIR" ]; then
     echo "DOCKER_DIR variable is not set"
 fi
 
+# Checking DOCKER_HOST
+if [ -z "$DOCKER_HOST" ]; then
+    echo "DOCKER_HOST variable is not set"
+fi
+
 # Checking existence of docker directory
 if ! [ -d "$DOCKER_DIR" ]; then
   echo "$DOCKER_DIR does not exist"
@@ -14,10 +19,10 @@ fi
 cd "$DOCKER_DIR" || exit
 
 # Pulling updates from git repository
-git pull
+# git pull
 
 # Pulling docker images
-docker-compose pull
+docker-compose -H "tcp://$DOCKER_HOST" pull
 
 # Restarting updated containers
-docker-compose up -d
+docker-compose -H "tcp://$DOCKER_HOST" up -d
