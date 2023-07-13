@@ -17,10 +17,11 @@ VOLUME      ["/etc/webhook"]
 EXPOSE      9000
 ENTRYPOINT  ["/usr/local/bin/webhook"]
 
-RUN apk add --update git docker docker-compose && \
-     rm -rf /var/cache/apk/*
+RUN         apk add --update git docker docker-compose && \
+            rm -rf /var/cache/apk/*
 
-COPY hooks.json /etc/webhook/hooks.json
-COPY deploy.sh /usr/local/bin/deploy.sh
+COPY        hooks.json /etc/webhook/hooks.json
+COPY        deploy.sh /usr/local/bin/deploy.sh
+RUN         chmod +x /usr/local/bin/deploy.sh
 
-CMD ["-verbose", "-hooks=/etc/webhook/hooks.json", "-hotreload"]
+CMD         ["-verbose", "-hooks=/etc/webhook/hooks.json", "-hotreload"]
