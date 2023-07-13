@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Checking ENV variables
 if [ -z "$DOCKER_DIR" ]; then
