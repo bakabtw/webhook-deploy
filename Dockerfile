@@ -22,3 +22,5 @@ RUN apk add --update docker && \
 
 COPY hooks.json /etc/webhook/hooks.json
 COPY deploy.sh /usr/local/bin/deploy.sh
+
+CMD ["-verbose", "-hooks=/etc/webhook/hooks.json", "-hotreload"]
