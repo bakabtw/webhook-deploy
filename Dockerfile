@@ -1,6 +1,6 @@
 FROM almir/webhook
 
-RUN  apk --update --upgrade add docker curl bash && \
+RUN apk --update add docker && \
      rm -rf /var/cache/apk/*
 
 COPY hooks.json /etc/webhook/hooks.json
