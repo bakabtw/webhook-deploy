@@ -11,7 +11,7 @@ RUN         go get -d -v
 RUN         CGO_ENABLED=0 go build -ldflags="-s -w" -o /usr/local/bin/webhook
 
 FROM        alpine
-RUN         apk add --update git docker docker-compose sshpass && \
+RUN         apk add --update git docker docker-compose openssh && \
             rm -rf /var/cache/apk/*
 COPY        --from=build /usr/local/bin/webhook /usr/local/bin/webhook
 COPY        hooks.json /etc/webhook/hooks.json
