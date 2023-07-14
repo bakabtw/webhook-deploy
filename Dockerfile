@@ -11,17 +11,14 @@ RUN         go get -d -v
 RUN         CGO_ENABLED=0 go build -ldflags="-s -w" -o /usr/local/bin/webhook
 
 FROM        alpine
+RUN         apk add --update git docker docker-compose sshpass && \
+            rm -rf /var/cache/apk/*
 COPY        --from=build /usr/local/bin/webhook /usr/local/bin/webhook
+COPY        hooks.json /etc/webhook/hooks.json
+COPY        deploy.sh /usr/local/bin/deploy.sh
+RUN         chmod +x /usr/local/bin/deploy.sh
 WORKDIR     /etc/webhook
 VOLUME      ["/etc/webhook"]
 EXPOSE      9000
 ENTRYPOINT  ["/usr/local/bin/webhook"]
-
-RUN         apk add --update git docker docker-compose sshpass && \
-            rm -rf /var/cache/apk/*
-
-COPY        hooks.json /etc/webhook/hooks.json
-COPY        deploy.sh /usr/local/bin/deploy.sh
-RUN         chmod +x /usr/local/bin/deploy.sh
-
 CMD         ["-verbose", "-hooks=/etc/webhook/hooks.json", "-hotreload"]
